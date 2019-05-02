@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     
+     <title>SHOP 1.0 by ApoloSoft(c) 2014</title>     
+     <link href="css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+     <script src="js/jquery-1.9.1.js"></script>
+     <script src="js/jquery-ui-1.10.3.custom.js"></script>
+     <script src="socket.io/lib/socket.io.js"></script>
+     <link rel=StyleSheet href="css/estilos.css" type="text/css">
+     <link rel="stylesheet" type="text/css" media="screen" href="jqgrid/css/ui.jqgrid.css" />
+     <script src="jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+     <script src="jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+     <link rel="stylesheet" type="text/css" href="css/slick.css"/>
+     <script type="text/javascript" src="js/slick.js"></script>
+     <script src="js/funciones.js"></script>
+
+     <script type="text/javascript">
+	  
+	  var socket;
+	  
+	  $(document).ready(function(){
+	       
+	       socket = io.connect(window.location.hostname);	       
+	       
+	       $('.autoplay').slick({
+		    arrows: false,
+		    dots: false,
+		    slidesToShow: 1,
+		    slidesToScroll: 1,
+		    autoplay: true,
+		    autoplaySpeed: 60000	    
+	       });
+	       
+	       $('.fade').slick({
+		    arrows: false,
+		    dots: false,
+		    infinite: true,
+		    speed: 500,
+		    fade: true,
+		    slide: 'div',
+		    cssEase: 'linear',
+		    autoplay: true,
+		    autoplaySpeed: 60000
+	       });	       
+	  
+	  
+	       $("#miscompras").hover(function(){
+		    $("#miscompras").css("color","red");
+	       });
+	       
+	       $("#miscompras").mouseout(function(){
+		    $("#miscompras").css("color","black");
+	       });
+	       
+	       $("#misvalesdescuento").hover(function(){
+		    $("#misvalesdescuento").css("color","red");
+	       });
+	       
+	       $("#misvalesdescuento").mouseout(function(){
+		    $("#misvalesdescuento").css("color","black");
+	       });
+	       
+	       $("#misdatospersonales").hover(function(){
+		    $("#misdatospersonales").css("color","red");
+	       });
+	       
+	       $("#misdatospersonales").mouseout(function(){
+		    $("#misdatospersonales").css("color","black");
+	       });
+	       
+	       $("#lona").hover(function(){
+		    $("#lona").css("color","red");
+	       });
+	       
+	       $("#lona").mouseout(function(){
+		    $("#lona").css("color","black");
+	       });
+	       
+	       $("#sintetico").hover(function(){
+		    $("#sintetico").css("color","red");
+	       });
+	       
+	       $("#sintetico").mouseout(function(){
+		    $("#sintetico").css("color","black");
+	       });
+	       
+	       $("#cuero").hover(function(){
+		    $("#cuero").css("color","red");
+	       });
+	       
+	       $("#cuero").mouseout(function(){
+		    $("#cuero").css("color","black");
+	       });
+	       
+	       $("#materialesespeciales").hover(function(){
+		    $("#materialesespeciales").css("color","red");
+	       });
+	       
+	       $("#materialesespeciales").mouseout(function(){
+		    $("#materialesespeciales").css("color","black");
+	       });
+	       
+	       $("#promicionesespeciales").hover(function(){
+		    $("#promicionesespeciales").css("color","red");
+	       });
+	       
+	       $("#promicionesespeciales").mouseout(function(){
+		    $("#promicionesespeciales").css("color","black");
+	       });
+	       
+	       $("#pagoseguro").hover(function(){
+		    $("#pagoseguro").css("color","red");
+	       });
+	       
+	       $("#pagoseguro").mouseout(function(){
+		    $("#pagoseguro").css("color","black");
+	       });
+	       
+	       $("#enviosdepedidos").hover(function(){
+		    $("#enviosdepedidos").css("color","red");
+	       });
+	       
+	       $("#enviosdepedidos").mouseout(function(){
+		    $("#enviosdepedidos").css("color","black");
+	       });
+	       
+	       $("#lomasvendido").hover(function(){
+		    $("#lomasvendido").css("color","red");
+	       });
+	       
+	       $("#lomasvendido").mouseout(function(){
+		    $("#lomasvendido").css("color","black");
+	       });
+	       
+	       $("#login").hover(function(){
+		    $("#login").css("color","red");
+	       });
+	       
+	       $("#login").mouseout(function(){
+		    $("#login").css("color","black");
+	       });
+	       
+	       $("#register").hover(function(){
+		    $("#register").css("color","red");
+	       });
+	       
+	       $("#register").mouseout(function(){
+		    $("#register").css("color","black");
+	       });
+	       
+	       $("#micarro2").hover(function(){
+		    $("#micarro2").css("color","red");
+	       });
+	       
+	       $("#micarro2").mouseout(function(){
+		    $("#micarro2").css("color","black");
+	       });
+	       
+	       $("#personaliza").hover(function(){
+		    $("#personaliza").css("color","red");
+	       });
+	       
+	       $("#personaliza").mouseout(function(){
+		    $("#personaliza").css("color","black");
+	       });	       
+	       
+	       $('#trigger0').bind('mouseover', OnMouseHover0);
+	       
+	       $('#trigger0').bind('mouseout', OnMouseOut0);
+	       
+	       $('#trigger1').bind('mouseover', OnMouseHover1);
+	       
+	       $('#trigger1').bind('mouseout', OnMouseOut1);
+	       
+	       $('#trigger2').bind('mouseover', OnMouseHover2);
+	       
+	       $('#trigger2').bind('mouseout', OnMouseOut2);
+	       
+	       $('#trigger3').bind('mouseover', OnMouseHover3);
+	       
+	       $('#trigger3').bind('mouseout', OnMouseOut3);
+
+	  	  
+	       //var socket = io.connect(window.location.hostname); 	  
+	       
+	       socket.on('news', function (data) {
+		    //alert(data.hello);
+		    socket.emit('my other event', { my: 'Test' });	    
+	       });	       
+	       
+	       socket.on('ArticulosBack', function (data) {
+		    CargarArticulos(data);	       	    
+	       });
+	       
+	       socket.emit('CargarArticulos', { codigogrupo: 1 });
+	       
+	       $("#Op11").click(function(){
+		    $("#Conteiner").html('');
+		    socket.emit('CargarArticulos', { codigogrupo: 11 });	  
+	       });
+	       
+	       $("#Op12").click(function(){
+		    $("#Conteiner").html('');
+		    socket.emit('CargarArticulos', { codigogrupo: 12 });	  
+	       });
+	       
+	       $("#Op13").click(function(){
+		    $("#Conteiner").html('');
+		    socket.emit('CargarArticulos', { codigogrupo: 13 });	  
+	       });
+	       
+	       $("#Op14").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+		
+	       $("#Op15").click(function(){
+		    $("#Conteiner").html('');
+		    socket.emit('CargarArticulos', { codigogrupo: 15 });	  
+	       });
+	       
+	       $("#Op21").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op22").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op23").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op24").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op25").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op26").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op31").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op32").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op33").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op34").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op41").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op42").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op43").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#Op44").click(function(){
+		    $("#Conteiner").html('');
+		    alert('Ningun producto con estas caracteristicas por el momento');	  
+	       });
+	       
+	       $("#home").click(function(){
+		    $("#Conteiner").html('');
+		    socket.emit('CargarArticulos', { codigogrupo: 1 });	  
+	       });
+	       
+	  });
+	
+    </script>    
+</head>
+<body>    
+    <div style="border:3px white solid; width:1114px; height:1360px; margin:0 auto 0 auto; position:relative;">
+	  <div style="background:#ccc; border:3px white solid; width:1108px; height:40px; margin:0 auto 0 auto;">
+	       <img style="float:left; margin-left:40px; margin-top:5px;" src="img/call40.png" />
+	       <label style="font-size:16px; font-weight:bold; margin-top:12px; margin-left:8px; color:black; float:left;">951.31.00.00</label>		    
+	       <img style="width:3%; height:60%; float:left; margin-left:40px; margin-top:10px;" src="img/email106.png" />
+	       <label style="font-size:16px; font-weight:bold; margin-top:12px; margin-left:8px; color:black; float:left;">ventas@decocalza.com</label>
+	       <label id="register" title="Crear cuenta nueva con los datos de mi cuenta "style="font-size:16px; font-weight:bold; margin-top:12px; margin-right:38px; color:black; float:right;">Regitrarse</label>		    
+	       <img style="width:2%; height:60%; float:right; margin-right:8px; margin-top:10px;" src="img/register.png" />
+	       <label id="login" title="Ingresar en los datos de mi cuenta si existe" style="font-size:16px; font-weight:bold; margin-top:12px; margin-right:38px; color:black; float:right;">Login</label>		    
+	       <img style="width:2%; height:60%; float:right; margin-right:8px; margin-top:10px;" src="img/login17.png" />
+	       <img style="width:2%; height:60%; float:left; margin-left:38px; margin-top:10px;" src="img/looking5.png" />
+	       <input size="30" style="float:left; margin-top:11px; margin-left:8px;" type="text" id="buscarproducto" name="buscarproducto" placeholder="Buscar un producto...">
+	       <input type="submit" value="Ok" id="botonbuscar" style="width:30px; height:24px; background-color:black; color:white; margin-top:10px; font-weight:bold;">
+	  </div>
+	  <div style="background:#ccc; border:3px white solid; width:1108px; height:130px; margin:0 auto 0 auto;">	       
+	       <div style="border:0px white solid; width:300px; height:121px; float:left; margin-top:4px; margin-left:24px;">
+		    <img style="height:100%;" src="img/logo.jpg" />		    
+	       </div>
+	       <div style="border:0px white solid; width:400px; height:124px; float:left; margin-top:4px; margin-left:24px;">
+		    <div class="autoplay">
+			 <div style="border:0px white solid; width:100px; height:122px;">
+			      <img style="width:100%; height:100%;" src="img/4.jpg" />
+			 </div>
+			 <div style="border:0px white solid; width:100px; height:122px;">
+			      <img style="width:100%; height:100%;" src="img/5.jpg" />
+			 </div>
+			 <div style="border:0px white solid; width:100px; height:122px;">
+			      <img style="width:100%; height:100%;" src="img/6.jpg" />
+			 </div>
+		    </div>
+	       </div>
+	       <div style="border:3px white solid; width:300px; height:116px; float:left; margin-top:4px; margin-left:34px;">
+		    <img id="micarro1" title="Ver el contenido de mi carro" style="float:left; margin-left:10px; margin-top:10px;" src="img/cart.png" />
+		    <label id="micarro2" title="Ver el contenido de mi carro" style="font-size:24px; margin-top:24px; margin-left:8px; font-weight:bold; color:black; float:left;">Mi Carro (0)</label>		    
+		    <label style="font-size:24px; margin-top:24px; margin-left:8px; font-weight:bold; color:black; float:left;">Importe: 0 &#8364</label>		    
+	       </div>	       
+	  </div>
+	  <div style="background:#ccc; border:3px white solid; width:1108px; height:60px; margin:0 auto 0 auto;">	  
+	       <img id="home" title="Inicio" style="float:left; margin-left:14px; margin-top:8px;" src="img/home.png" />		    	       
+	       <ul id="main_navigation" style="margin-left:70px; margin-top:10px;">
+		    <li id="trigger0"><a href="#">Lona</a>
+			 <ul class="subNavMenuItems" id="subNav0">
+			      <li id="Op11"><a href="#">Tema liso</a></li>
+			      <li id="Op12"><a href="#">Liso con purpurina</a></li>
+			      <li id="Op13"><a href="#">Liso con lazos</a></li>
+			      <li id="Op14"><a href="#">Liso con lazos y purpurina</a></li>
+			      <li id="Op15"><a href="#">Otros adornos</a></li>
+			 </ul>
+		    </li>
+		    <li id="trigger1"><a href="#">Sintetico</a>
+			 <ul class="subNavMenuItems" id="subNav1">
+			      <li id="Op21"><a href="#">Tema 1</a></li>
+			      <li id="Op22"><a href="#">Tema 2</a></li>
+			      <li id="Op23"><a href="#">Tema 3</a></li>
+			      <li id="Op24"><a href="#">Tema 4</a></li>
+			      <li id="Op25"><a href="#">Tema 5</a></li>
+			      <li id="Op26"><a href="#">Tema 6</a></li>
+			 </ul>
+		    </li>
+		    <li id="trigger2"><a href="#">Cuero</a>
+			 <ul class="subNavMenuItems" id="subNav2">
+			      <li id="Op31"><a href="#">Sin tacon</a></li>
+			      <li id="Op32"><a href="#">Tacon medio</a></li>
+			      <li id="Op33"><a href="#">Tacon alto</a></li>
+			      <li id="Op34"><a href="#">Drackuing</a></li>
+			 </ul>
+		    </li>
+		    <li id="trigger3"><a href="#">Materiales especiales</a>
+			 <ul class="subNavMenuItems" id="subNav3">
+			      <li id="Op41"><a href="#">Material 1</a></li>
+			      <li id="Op42"><a href="#">Material 2</a></li>
+			      <li id="Op43"><a href="#">Material 3</a></li>
+			      <li id="Op44"><a href="#">Material 4</a></li>
+			 </ul>
+		    </li>
+	       </ul>	       
+	       <div id="personaliza" style="background:#ccc; font-size:24px; margin-top:10px; border:3px white solid; width:300px; height:34px; float:right; margin-right:18px;">Personaliza tu tema...
+		    <img style="width:24px; height:24px; float:left; margin-left:4px; margin-top:3px;" src="img/thought6.png"/>
+	       </div>	       
+	  </div>
+	  <div style="background:#ccc; border:3px white solid; width:270px; height:840px; float:left;">
+	       <div style="background:white; font-size:20px; border:0px white solid; width:250px; height:190px; margin-left:8px; margin-top:8px;">    
+		    <div style="border:1px white solid; width:256px; height:28px; font-size:20px; background:#cce; font-weight:bold; color:black;">
+			 <img style="width:32px; height:28px; float:left; margin-left:6px; margin-right:6px;" src="img/sales.png"/>Lo mas vendido
+		    </div>
+		    <img style="width:154px; height:124px; float:left; margin-top:4px; margin-left:36px;" src="img/productos/r015.jpg"/>
+		    <label style="margin-left:6px; margin-top:4px; font-size:12px; font-weight:bold; color:red; float:left;">Referencia: R015</label>		    
+		    <label style="margin-left:16px; margin-top:4px; font-size:20px; font-weight:bold; color:black; float:left;">25,95&#8364;</label>		    
+	       </div>
+	       <div style="background:white; font-size:20px; border:0px white solid; width:250px; height:190px; margin-left:8px; margin-top:8px;">    
+		    <div style="border:1px white solid; width:256px; height:28px; font-size:20px; background:#cce; font-weight:bold; color:black;">
+			 <img style="width:24px; height:24px; float:left; margin-left:6px; margin-right:6px;" src="img/info4.png"/>Ofertas
+		    </div>
+		    <img style="width:154px; height:124px; float:left; margin-top:4px; margin-left:36px;" src="img/productos/r027.jpg"/>
+		    <label style="margin-left:6px; margin-top:4px; font-size:12px; font-weight:bold; color:red; float:left;">Referencia: R027</label>
+		    <label style="margin-left:16px; margin-top:4px; font-size:20px; font-weight:bold; color:black; float:left;">125,95&#8364;</label>		    
+	       </div>
+	       <div style="background:white; font-size:20px; border:0px white solid; width:250px; height:190px; margin-left:8px; margin-top:8px;">    
+		    <div style="border:1px white solid; width:256px; height:28px; font-size:20px; background:#cce; font-weight:bold; color:black;">
+			 <img style="width:24px; height:24px; float:left; margin-bottom:8px; margin-left:6px; margin-right:6px;" src="img/new16.png"/>Novedades
+		    </div>
+		    <img style="width:124px; height:124px; float:left; margin-bottom:8px; margin-left:6px;" src="img/productos/r012.jpg"/>
+		    <label style="margin-left:6px; margin-top:4px; font-size:12px; font-weight:bold; color:red; float:left;">Referencia: R012</label>
+		    <label style="margin-left:16px; margin-top:4px; font-size:20px; font-weight:bold; color:black; float:left;">25,95&#8364;</label>		    
+	       </div>
+	       <div style="background:white; border:0px white solid; width:250px; height:210px; margin-left:8px; margin-top:8px;">
+		    <div style="border:1px white solid; width:256px; height:28px; font-size:20px; background:#cce; font-weight:bold; color:black;">Promociones
+			 <img style="width:20px; height:20px; float:left; margin-bottom:2px; margin-left:6px; margin-right:6px;" src="img/promoting.png"/>
+		    </div>		    
+		    <div style="margin-left:28px; margin-top:8px; border:0px black solid; width:152px; height:142px;">
+			 <div class="fade" >
+			      <div style="background:white; border:0px white solid; height:140px;">
+				   <img style="width:100%; height:100%;" src="img/1.jpg" />
+			      </div>
+			      <div style="background:white; border:0px white solid; height:140px;">
+				   <img style="width:100%; height:100%;" src="img/2.jpg" />
+			      </div>
+			      <div style="background:white; border:0px white solid; height:140px;">
+				   <img style="width:100%; height:100%;" src="img/3.jpg" />
+			      </div>
+			 </div>		    
+		    </div>		    
+		    <label style="margin-left:6px; margin-top:4px; font-size:12px; font-weight:bold; color:red; float:left;">Referencia: R000</label>
+	       </div>
+	  </div>
+	  <div id="Conteiner" style="overflow-y:auto; background:#cca; border:3px white solid; width:832px; height:840px; float:left;">	           
+	  </div>
+	  <div style="background:#ccc; border:3px white solid; width:1108px; height:260px; position:absolute; bottom:0;">
+	       <div style="background:#ccb; border:0px white solid; width:1108px; height:52px;">
+		    <label style="margin-left:16px; margin-top:14px; font-size:20px; font-weight:bold; color:black; float:left;">Siguenos en: </label>
+		    <img style="width:32px; height:32px; float:left; margin-top:12px; margin-left:16px;" src="img/facebook.png"/>
+		    <img style="width:32px; height:32px; float:left; margin-top:12px; margin-left:16px;" src="img/twitter.png"/>
+		    <label style="margin-left:116px; margin-top:14px; font-size:20px; font-weight:bold; color:black; float:left;">Pago seguro con: </label>
+		    <img style="width:56px; height:40px; float:left; margin-top:6px; margin-left:16px;" src="img/paypal.png"/>
+	       </div>
+	       <div style="background:white; border:2px white solid; width:1108px; height:2px;">    
+	       </div>
+	       <div style="background:#cce; border:0px white solid; width:1108px; height:160px;">
+		    <div style="border:1px white solid; width:200px; height:140px; margin-top:8px; margin-left:34px; font-size:24px; font-weight:bold; color:black; float:left;">
+			 <img style="width:24px; height:24px; float:left; margin-left:6px; font-size:22px; margin-right:6px;" src="img/cuenta.png"/>Mi cuenta
+			 <label id="miscompras" style="margin-top:12px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Mis compras</label>
+			 <label id="misvalesdescuento" style="margin-top:12px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Mis vales descuento</label>
+			 <label id="misdatospersonales" style="margin-top:12px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Mis datos personales</label>
+		    </div>
+		    <div style="border:1px white solid; width:200px; height:140px; margin-top:8px; margin-left:34px; font-size:24px; font-weight:bold; color:black; float:left;">
+			 <img style="width:24px; height:24px; float:left; margin-left:6px; margin-right:6px;" src="img/categorias.png"/>Categorias
+			 <label id="lona" style="margin-top:12px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Lona</label>
+			 <label id="sintetico" style="margin-top:12px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Sintetico</label>
+			 <label id="cuero" style="margin-top:12px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Cuero</label>
+			 <label id="materialesespeciales" style="margin-top:22px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Materiales especiales</label>
+		    </div>
+		    <div style="border:1px white solid; width:200px; height:140px; margin-top:8px; margin-left:34px; font-size:24px; font-weight:bold; color:black; float:left;">
+			 <img style="width:24px; height:24px; float:left; margin-left:6px; margin-right:6px;" src="img/info4.png"/>Informacion
+			 <label id="promicionesespeciales" style="margin-top:10px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Promociones especiales</label>
+			 <label id="pagoseguro" style="margin-top:8px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Pago seguro</label>
+			 <label id="enviosdepedidos" style="margin-top:8px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Envios de pedidos</label>
+			 <label id="lomasvendido" style="margin-top:8px; margin-left:10px; font-weight:bold; font-size:14px; color:black; float:left;">Lo mas vendido!</label>
+		    </div>		    
+	       </div>
+	       <div style="background:white; border:2px white solid; width:1108px; height:2px;">    
+	       </div>
+	       <div style="background:#ccd; border:0px white solid; width:1106px; height:30px;">    
+		    <img style="float:left; margin-left:40px;" src="img/posicion.jpg"/>
+		    <label style="margin-top:8px; margin-left:4px; font-weight:bold; color:black; float:left;">Avda. de Andalucia, 23 Mijas-Costa Malaga, (951)000-102</label>
+		    <img style="float:left; margin-left:320px; margin-top:2px;" src="img/autor.jpg" />
+		    <label style="margin-top:8px; margin-right:40px; font-weight:bold; color:black; float:right;">SHOP by ApoloSoft Copyright(c) 2015</label>
+	       </div>	       
+	  </div>	  
+    </div>    
+</body>
+</html>
+
+
+
+
